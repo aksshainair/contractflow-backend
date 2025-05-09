@@ -9,7 +9,7 @@ from qdrant_client import QdrantClient
 from qdrant_client.http.models import Filter
 from openai import OpenAI
 from qdrant_client.models import Filter, FieldCondition, MatchValue
-from embedding_utils import embed_text
+from .embedding_utils import embed_text
 import json
 import asyncio
 from .database import (
