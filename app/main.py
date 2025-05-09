@@ -51,6 +51,28 @@ class EmailRequest(BaseModel):
     subject: str
     message: str
 
+
+from fastapi.responses import JSONResponse
+from fastapi.requests import Request
+from fastapi.exceptions import RequestValidationError
+from starlette.status import HTTP_401_UNAUTHORIZED
+
+@app.exception_handler(HTTPException)
+async def custom_http_exception_handler(request: Request, exc: HTTPException):
+    if exc.status_code == HTTP_401_UNAUTHORIZED:
+        return JSONResponse(
+            status_code=exc.status_code,
+            content={"detail": exc.detail},
+            headers={
+                "Access-Control-Allow-Origin": request.headers.get("origin") or "*",
+                "Access-Control-Allow-Credentials": "true"
+            }
+        )
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail}
+    )
+
 @app.post("/token")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     user = get_user_by_email(form_data.username)
