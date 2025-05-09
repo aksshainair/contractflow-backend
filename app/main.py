@@ -14,13 +14,13 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 from typing import Optional
 
-from models import User, Document, DocumentStatus, DocumentUpdate
-from database import (
+from .models import User, Document, DocumentStatus, DocumentUpdate
+from .database import (
     get_user_by_email, create_user, create_document,
     get_document_by_id, update_document, get_documents_for_user,
     get_user_by_id
 )
-from auth import (
+from .auth import (
     verify_password, get_password_hash, create_access_token,
     get_current_user, ACCESS_TOKEN_EXPIRE_MINUTES
 )
