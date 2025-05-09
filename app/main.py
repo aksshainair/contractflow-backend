@@ -35,7 +35,7 @@ app = FastAPI()
 # Updated CORS middleware to use allow_origin_regex for dynamic origin matching
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"https://.*\.vercel\.app",  # Allow all Vercel frontend deployments
+    allow_origin_regex="https://contractflow-frontend.vercel.app",  # Allow all Vercel frontend deployments
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -51,27 +51,6 @@ class EmailRequest(BaseModel):
     subject: str
     message: str
 
-
-from fastapi.responses import JSONResponse
-from fastapi.requests import Request
-from fastapi.exceptions import RequestValidationError
-from starlette.status import HTTP_401_UNAUTHORIZED
-
-@app.exception_handler(HTTPException)
-async def custom_http_exception_handler(request: Request, exc: HTTPException):
-    if exc.status_code == HTTP_401_UNAUTHORIZED:
-        return JSONResponse(
-            status_code=exc.status_code,
-            content={"detail": exc.detail},
-            headers={
-                "Access-Control-Allow-Origin": request.headers.get("origin") or "*",
-                "Access-Control-Allow-Credentials": "true"
-            }
-        )
-    return JSONResponse(
-        status_code=exc.status_code,
-        content={"detail": exc.detail}
-    )
 
 @app.post("/token")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
