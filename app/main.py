@@ -35,7 +35,7 @@ app = FastAPI()
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow requests from any origin
+    allow_origin_regex=r"https://contractflow-frontend-.*\.vercel\.app",  # Allow all requests from vercel frontends
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
