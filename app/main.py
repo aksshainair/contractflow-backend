@@ -32,13 +32,13 @@ load_dotenv()
 
 app = FastAPI()
 
-# CORS middleware
+# Updated CORS middleware to use allow_origin_regex for dynamic origin matching
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"https://contractflow-frontend-.*\.vercel\.app",  # Allow all requests from vercel frontends
+    allow_origin_regex=r"https://.*\.vercel\.app",  # Allow all Vercel frontend deployments
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Include routers
