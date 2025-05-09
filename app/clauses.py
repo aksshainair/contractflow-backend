@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import List
 from datetime import datetime
 from bson import ObjectId
-from database import db
+from .database import db
 
 router = APIRouter()
 

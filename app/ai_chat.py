@@ -12,7 +12,7 @@ from qdrant_client.models import Filter, FieldCondition, MatchValue
 from embedding_utils import embed_text
 import json
 import asyncio
-from database import (
+from .database import (
     get_user_by_email, create_user, create_document,
     get_document_by_id, update_document, get_documents_for_user,
     get_user_by_id
